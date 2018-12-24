@@ -39,6 +39,14 @@ public class BanK {
         accounts[from] -= amount;  //金额来源方减去相应的转移金额。
         System.out.printf("%10.2f from %d to %d", amount, from, to);
 
+        /*
+        该行代码非原子性操作指令可能如下：
+        1）将accounts[to]加载到寄存器
+        2）增加amount
+        3）将结果写回accounts[to]
+        假定第一个线程执行步骤1和2，然后它被剥夺了运行权。第2个线程被唤醒并修改了accounts数组中的同一项。然后第一个线程被唤醒并完成其第三步将第一个
+        线程前两步执行的结果写会了数组，这一动作擦去了第二个线程所做的更新，于是总金额不再正确。
+         */
         accounts[to] += amount;//金额获取方加入相应的金额
         //打印所有账户总金额
         System.out.printf(" Total Balance:%10.2f%n",getTotalBalance());
