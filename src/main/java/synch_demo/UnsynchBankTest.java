@@ -16,7 +16,7 @@ public class UnsynchBankTest {
     public static final int DELAY = 10;
 
     public static void main(String[] args) {
-        unsynchBankTest();
+       // unsynchBankTest();
         bankByConditionTest(); //条件同步安全测试
 
     }

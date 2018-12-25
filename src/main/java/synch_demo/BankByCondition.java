@@ -30,6 +30,7 @@ public class BankByCondition {
         bankLock.lock();
         try {
             while (accounts[from] < amount) {  //校验账户金额是否小于要转出的金额，如果条件为否
+                System.out.println(Thread.currentThread()+"is wait *****");
                 sufficientFunds.await(); // 线程等待
             }
             System.out.print(Thread.currentThread());
