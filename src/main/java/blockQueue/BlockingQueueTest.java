@@ -2,7 +2,6 @@ package blockQueue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.DuplicateFormatFlagsException;
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -30,7 +29,7 @@ public class BlockingQueueTest {
             String keyword = in.next();
             Runnable enumerator = () -> {
                 try {
-                    enumrate(new File(director));
+                    enumerate(new File(director));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -40,7 +39,7 @@ public class BlockingQueueTest {
                 Runnable searcher = () -> {
                     try {
                         boolean done = false;
-                        while (!done) {
+                        while (!done) {//搜索完成
                             File file = queue.take();
 
                             if (file == DUMMY) {
@@ -81,11 +80,11 @@ public class BlockingQueueTest {
         }
     }
 
-    private static void enumrate(File file) throws InterruptedException {
+    private static void enumerate(File file) throws InterruptedException {
         File[] files = file.listFiles();
         for (File file1 : files) {
             if (file1.isDirectory()) {
-                enumrate(file1);
+                enumerate(file1);
 
             } else {
                 queue.put(file1);
